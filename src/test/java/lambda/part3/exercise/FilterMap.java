@@ -50,11 +50,17 @@ public class FilterMap {
         }
 
         public <R> LazyCollectionHelper<R> map(Function<T, R> function) {
-            // TODO
-            throw new UnsupportedOperationException();
+            List<R> rList = new ArrayList<>();
+            for (T t : list) {
+                rList.add(function.apply(t));
+            }
+            List<Container<Object, Object>> newActions = new ArrayList<>(actions);
+            newActions.add(new Container<>((Function<Object, Object>) function));
+            return new LazyCollectionHelper<R>(rList, newActions);
         }
 
         public List<T> force() {
+
             // TODO
             throw new UnsupportedOperationException();
         }
